@@ -10,6 +10,20 @@ import './screens/devices_screen.dart';
 import './screens/order_details_screen.dart';
 import './screens/login_screen.dart';
 import './screens/register_screen.dart';
+// warehouse
+import 'warehouse/screens/warehouse_home.dart';
+import 'warehouse/screens/basicScreen/product_Management_Screen/product_management_screen.dart';
+import 'warehouse/screens/basicScreen/order_Management_Screen/order_management_screen.dart';
+import 'warehouse/screens/basicScreen/add_Order_Screen/add_order_screen.dart';
+
+import 'warehouse/screens/basicScreen/product_Management_Screen/add_frame.dart';
+import 'warehouse/screens/basicScreen/product_Management_Screen/devices_management_screen.dart';
+import 'warehouse/screens/basicScreen/product_Management_Screen/frame_management_screen.dart';
+import 'warehouse/screens/basicScreen/product_Management_Screen/lenses_management_screen.dart';
+import 'warehouse/screens/basicScreen/order_Management_Screen/new_order_screen.dart';
+import 'warehouse/screens/basicScreen/order_Management_Screen/excuted-order-screen.dart';
+import 'warehouse/screens/basicScreen/order_Management_Screen/order_detail_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -33,23 +47,20 @@ class MyApp extends StatelessWidget {
         OrderdetailsScreen.routeName: (ctx) => OrderdetailsScreen(),
         LogIn.routeName: (ctx) => LogIn(),
         Register.routeName: (ctx) => Register(),
+        // warehouse
+        '/warehouse': (ctx) => HomePage(),
+        AddOrder.routeName: (ctx) => AddOrder(),
+        ProductManagementScreen.routeName: (ctx) => ProductManagementScreen(),
+        OrderManagementScreen.routeName: (ctx) => OrderManagementScreen(),
+        DevicesManagementScreen.routeName: (ctx) => DevicesManagementScreen(),
+        FrameManagementScreen.routeName: (ctx) => FrameManagementScreen(),
+        LensesManagementScreen.routeName: (ctx) => LensesManagementScreen(),
+        AddFrame.routeName: (ctx) => AddFrame(),
+        NewOrderScreen.routeName: (ctx) => NewOrderScreen(),
+        ExcutedOrderScreen.routeName: (ctx) => ExcutedOrderScreen(),
+        OrderDetialScreen.routeName: (ctx) => OrderDetialScreen(),
       },
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
