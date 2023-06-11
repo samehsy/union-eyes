@@ -1,10 +1,11 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import '../di/service_locator.dart';
 import '../widget/header.dart';
-import '../api/dio.dart';
+import '../services/auth_service.dart';
 
 class LogIn extends StatefulWidget {
   static const routeName = '/LogInScreen';
+
   @override
   State<LogIn> createState() => _LogInState();
 }
@@ -12,6 +13,8 @@ class LogIn extends StatefulWidget {
 class _LogInState extends State<LogIn> {
   String _userName = '';
   String _passWord = ' ';
+
+  final authService = getIt<AuthService>();
 
   @override
   Widget build(BuildContext context) {
@@ -110,19 +113,18 @@ class _LogInState extends State<LogIn> {
                   'password': _passWord,
                 };
 
-                var response = DioH.postData(
-                        data: userData,
-                        url: 'http://10.0.2.2:8000/api/customer/login')
+                var response = authService
+                    .login(_userName,_passWord)
                     .then(
                   (value) {
                     //print(value.data['user']['role']);
-                    if (value.data['status'] == 'success') {
-                      Navigator.of(context).pushNamed('homePageScreen');
-                    } else {
-                      print(value.data['status']);
-                    }
-                    var res = value.data['status'];
-                    print('res' + res);
+                    // if (value.data['status'] == 'success') {
+                    //   Navigator.of(context).pushNamed('homePageScreen');
+                    // } else {
+                    //   print(value.data['status']);
+                    // }
+                    // var res = value.data['status'];
+                    // print('res' + res);
                   },
                 );
               },

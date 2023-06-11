@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'di/service_locator.dart';
+
 import './screens/home_page_screen.dart';
 import './screens/introduction_screen.dart';
 import './screens/product_detail_screen.dart';
@@ -25,6 +27,7 @@ import 'warehouse/screens/basicScreen/order_Management_Screen/excuted-order-scre
 import 'warehouse/screens/basicScreen/order_Management_Screen/order_detail_screen.dart';
 
 void main() {
+  setup();
   runApp(const MyApp());
 }
 
@@ -35,9 +38,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: const Locale('ar'),
       title: 'Flutter Demo 1',
       routes: {
         '/': (ctx) => IntroductionScren(),
+        // clients routers
         HomePageScreen.routeName: (ctx) => HomePageScreen(),
         ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
         MyOrderScreen.routeName: (ctx) => MyOrderScreen(),
@@ -47,8 +52,8 @@ class MyApp extends StatelessWidget {
         OrderdetailsScreen.routeName: (ctx) => OrderdetailsScreen(),
         LogIn.routeName: (ctx) => LogIn(),
         Register.routeName: (ctx) => Register(),
-        // warehouse
-        '/warehouse': (ctx) => HomePage(),
+        // warehouse routers
+        '/warehouse': (ctx) => WareHoseHomePage(),
         AddOrder.routeName: (ctx) => AddOrder(),
         ProductManagementScreen.routeName: (ctx) => ProductManagementScreen(),
         OrderManagementScreen.routeName: (ctx) => OrderManagementScreen(),
@@ -61,7 +66,8 @@ class MyApp extends StatelessWidget {
         OrderDetialScreen.routeName: (ctx) => OrderDetialScreen(),
       },
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
+        primaryColor: Colors.amber,
         useMaterial3: true,
       ),
     );

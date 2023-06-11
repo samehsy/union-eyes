@@ -11,7 +11,6 @@ class HomePage extends StatelessWidget {
           child: CircleAvatar(
             backgroundImage: AssetImage(imagePath),
             radius: 45,
-            backgroundColor: Colors.red,
           ),
           onTap: () {},
         ),
@@ -35,20 +34,26 @@ class HomePage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/images/logo3.jpeg',
-          height: 125,
-          width: 125,
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            buildFilterIcon('أطفال', 'assets/images/child.png'),
+            buildFilterIcon('نسائي', 'assets/images/woman.png'),
+            buildFilterIcon('رجالي', 'assets/images/man.png'),
+          ],
         ),
         SizedBox(
-          width: double.infinity,
-          height: 5,
+          height: 10,
         ),
         Container(
           width: 400,
+          padding: EdgeInsets.all(8.0),
           child: TextField(
             decoration: InputDecoration(
-              hintText: 'Search',
+              hintText: 'ابحث باستخدام رقم الموديل',
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(
@@ -61,51 +66,22 @@ class HomePage extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 7,
+          height: 10,
         ),
-        Container(
-          height: 410,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Text(
-                  'تصفح الإطارات',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontFamily: 'Cario',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    buildFilterIcon('أطفال', 'assets/images/child.png'),
-                    buildFilterIcon('نسائي', 'assets/images/woman.png'),
-                    buildFilterIcon('رجالي', 'assets/images/man.png'),
-                  ],
-                ),
-                Container(
-                  height: 300,
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1,
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemBuilder: (ctx, i) => ProductItem(
-                      Dummy_Data[i].imageUrl?.first ?? '',
-                      Dummy_Data[i].noModel ?? '',
-                      Dummy_Data[i].price ?? 0,
-                    ),
-                    itemCount: Dummy_Data.length,
-                  ),
-                ),
-              ],
+        Expanded(
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 1,
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
             ),
+            itemBuilder: (ctx, i) => ProductItem(
+              Dummy_Data[i].imageUrl?.first ?? '',
+              Dummy_Data[i].noModel ?? '',
+              Dummy_Data[i].price ?? 0,
+            ),
+            itemCount: Dummy_Data.length,
           ),
         ),
       ],

@@ -9,41 +9,38 @@ class ProductItem extends StatelessWidget {
   ProductItem(this.imageUrl, this.noModel, this.price);
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(15)),
-      child: Card(
-        elevation: 10,
-        child: GridTile(
-          header: Container(),
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              Navigator.of(context).pushNamed(ProductDetailScreen.routeName);
-            },
+    return Card(
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          Navigator.of(context).pushNamed(ProductDetailScreen.routeName);
+        },
+        child: ClipRect(
+          child: GridTile(
             child: Image.asset(imageUrl),
-          ),
-          footer: Container(
-            height: 50,
-            color: Color.fromARGB(255, 242, 243, 244),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  price.toString() + '   SP',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 243, 156, 18),
+            footer: Container(
+              height: 50,
+              color: Color.fromARGB(255, 242, 243, 244),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    price.toString() + '   SP',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor
+                    ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.favorite_border,
-                    color: Color.fromARGB(255, 243, 156, 18),
+                  IconButton(
+                    icon: Icon(
+                      Icons.add_shopping_cart,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: () {},
                   ),
-                  onPressed: () {},
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -21,71 +21,54 @@ class _HomePageScreenState extends State<HomePageScreen> {
     InfoPageScreen(),
   ];
   int _selctedPageIndex = 0;
-  BottomNavigationBarItem buildBottomNavigationBar(
-    String pathImage,
-    String title,
-  ) {
-    return BottomNavigationBarItem(
-      icon: Container(
-        height: 33,
-        child: Image.asset(
-          pathImage,
-          fit: BoxFit.cover,
-        ),
-      ),
-     
-      label:title  
-    );
-  }
 
   void _selcetedPage(int index) {
     _selctedPageIndex = 0;
-    print(index);
-    print(_selctedPageIndex);
     setState(() {
       _selctedPageIndex = index;
-      print(index);
-      print(_selctedPageIndex);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 238, 238, 238),
-      body: _pages[_selctedPageIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: _selcetedPage,
-        selectedItemColor: Color.fromARGB(255, 243, 156, 18),
-        elevation: 70,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        currentIndex: _selctedPageIndex,
-        backgroundColor: Colors.white,
-        type: BottomNavigationBarType.shifting,
-        items: [
-          buildBottomNavigationBar(
-            'assets/icons/home.png',
-            'الرئيسية',
+    return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          backgroundColor: Color.fromARGB(255, 238, 238, 238),
+          body: _pages[_selctedPageIndex],
+          appBar: AppBar(
+            centerTitle: true,
+            shadowColor: Theme.of(context).colorScheme.shadow,
+            scrolledUnderElevation: 10.0,
+            title: Text('العالمية'),
+            leading: Image.asset(
+              'assets/images/logo-black.png',
+              width: 120,
+            ),
+            backgroundColor: Colors.amberAccent,
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.shopping_cart),
+                tooltip: 'السلة',
+                onPressed: () => _selcetedPage,
+              ),
+            ],
           ),
-          buildBottomNavigationBar(
-            'assets/icons/menu.png',
-            'القائمة',
+          bottomNavigationBar: NavigationBar(
+            labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+            selectedIndex: _selctedPageIndex,
+            backgroundColor: Colors.amberAccent,
+            elevation: 50,
+            onDestinationSelected: _selcetedPage,
+            indicatorColor: Colors.white60,
+            destinations: const <Widget>[
+              NavigationDestination(icon: Icon(Icons.home), label: 'الرئيسية'),
+              NavigationDestination(icon: Icon(Icons.menu), label: 'القائمة'),
+              NavigationDestination(icon: Icon(Icons.person), label: 'حسابي'),
+              NavigationDestination(
+                  icon: Icon(Icons.notifications), label: 'الإشعارات'),
+            ],
           ),
-          buildBottomNavigationBar(
-            'assets/icons/bag.png',
-            'السلة',
-          ),
-          buildBottomNavigationBar(
-            'assets/icons/user.png',
-            'حسابي',
-          ),
-          buildBottomNavigationBar(
-            'assets/icons/info.png',
-            'حول',
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../di/service_locator.dart';
 import '../widget/header.dart';
+import '../services/auth_service.dart';
 
 class Register extends StatefulWidget {
   static const routeName = '/RegisterScren';
@@ -18,6 +20,8 @@ class _RegisterState extends State<Register> {
   String address = '';
   String email = '';
   String password = '';
+
+  final authService = getIt<AuthService>();
 
   /* Widget buildInputFeild(String nameInputField, var controller) {
     return Column(
@@ -411,6 +415,7 @@ class _RegisterState extends State<Register> {
                 print('mobilenumber' + mobileNumber);
                 print('email' + email);
                 print('password' + password);
+                authService.signup(email, password);
               },
               child: Container(
                 width: 300,

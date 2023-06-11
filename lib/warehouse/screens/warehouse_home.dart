@@ -4,7 +4,7 @@ import 'basicScreen/order_Management_Screen/order_management_screen.dart';
 import 'basicScreen/product_Management_Screen/product_management_screen.dart';
 import 'basicScreen/add_Order_Screen/add_order_screen.dart';
 
-class HomePage extends StatelessWidget {
+class WareHoseHomePage extends StatelessWidget {
   static const routeName = '/HomePage';
   final categoryItem = [
     {
