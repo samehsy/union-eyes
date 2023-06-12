@@ -16,9 +16,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
   final List<Widget> _pages = [
     HomePage(),
     MenuPageScreen(),
-    CartPageScreen(),
     UserProfileScreen(),
-    InfoPageScreen(),
+    CartPageScreen(),
+
+    
   ];
   int _selctedPageIndex = 0;
 
