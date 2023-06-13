@@ -3,6 +3,8 @@ import '../widget/header.dart';
 import '../dummy_data.dart';
 
 class CartPageScreen extends StatefulWidget {
+  static const routeName = 'cart';
+
   @override
   _CartPageScreenState createState() => _CartPageScreenState();
 }

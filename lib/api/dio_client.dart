@@ -6,8 +6,8 @@ import 'auth_interceptor.dart';
 class DioClient {
   final Dio dio;
 
-  final _baseUrl = 'https://reqres.in/api/';
-  // static final _baseUrl = 'http://10.0.2.2:8000/api';
+  // final _baseUrl = 'https://reqres.in/api/';
+  static final _baseUrl = 'http://192.168.1.7:8000/api/';
 
   DioClient(this.dio) {
     dio

@@ -22,7 +22,7 @@ class GlassesFrame {
   final FrameShape? frameshape;
   final FrameClass? frameClass;
   final String? manufactureCompany;
-  final List<String>? imageUrl;
+  final List<dynamic>? imageUrl;
   final String? companyIcon;
 
   GlassesFrame({
@@ -40,4 +40,13 @@ class GlassesFrame {
     this.imageUrl,
     this.companyIcon,
   });
+
+    factory GlassesFrame.fromJson(Map<String, dynamic> json) {
+    return GlassesFrame(
+      id: json['id'],
+      price: json['price'],
+      imageUrl: json['images'],
+      noModel: json['numberModel'],
+    );
+  }
 }

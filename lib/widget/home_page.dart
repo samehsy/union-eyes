@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:secondapp/models/glasses_frame.dart';
+import 'package:secondapp/services/glasses_service.dart';
+import '../di/service_locator.dart';
 import '../dummy_data.dart';
 import '../widget/product_item.dart';
 
 class HomePage extends StatelessWidget {
+  final glassesService = getIt<GlassesService>();
+
   Widget buildFilterIcon(String titleFilter, String imagePath) {
     return Column(
       children: [
@@ -12,7 +16,9 @@ class HomePage extends StatelessWidget {
             backgroundImage: AssetImage(imagePath),
             radius: 45,
           ),
-          onTap: () {},
+          onTap: () {
+            glassesService.getAll();
+          },
         ),
         SizedBox(
           height: 4,
@@ -68,22 +74,36 @@ class HomePage extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        Expanded(
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 1,
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemBuilder: (ctx, i) => ProductItem(
-              Dummy_Data[i].imageUrl?.first ?? '',
-              Dummy_Data[i].noModel ?? '',
-              Dummy_Data[i].price ?? 0,
-            ),
-            itemCount: Dummy_Data.length,
-          ),
-        ),
+        FutureBuilder<List<GlassesFrame>>(
+          future: glassesService.getAll(),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<GlassesFrame>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              final List<GlassesFrame> products = snapshot.data!;
+
+              return Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 1,
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (ctx, i) => ProductItem(
+                    products[i].imageUrl?.first ?? '',
+                    products[i].noModel ?? '',
+                    products[i].price ?? 0,
+                  ),
+                  itemCount: products.length,
+                ),
+              );
+            }
+          },
+        )
       ],
     );
   }

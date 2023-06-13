@@ -17,7 +17,7 @@ class ProductItem extends StatelessWidget {
         },
         child: ClipRect(
           child: GridTile(
-            child: Image.asset(imageUrl),
+            child: Image.network('http://192.168.1.7:8000/api/images/$imageUrl'),
             footer: Container(
               height: 50,
               color: Color.fromARGB(255, 242, 243, 244),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import './cart_page_screen.dart';
-import './info_page_screen.dart';
 import './menu_page_screen.dart';
 import './user_profile_screen.dart';
 import '../widget/home_page.dart';
+import 'introduction_screen.dart';
 
 class HomePageScreen extends StatefulWidget {
   static const routeName = 'homePageScreen';
@@ -13,22 +13,13 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-  final List<Widget> _pages = [
-    HomePage(),
-    MenuPageScreen(),
-    UserProfileScreen(),
-    CartPageScreen(),
-
-    
-  ];
   int _selctedPageIndex = 0;
-
-  void _selcetedPage(int index) {
-    _selctedPageIndex = 0;
-    setState(() {
-      _selctedPageIndex = index;
-    });
-  }
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  final List<String> _screenRoutes = [
+    '/homePageScreen',
+    '/screen2',
+    '/screen3',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +27,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           backgroundColor: Color.fromARGB(255, 238, 238, 238),
-          body: _pages[_selctedPageIndex],
+          body: Navigator(
+            onGenerateRoute: (settings) {
+              return MaterialPageRoute(
+                settings: settings,
+                builder: (context) {
+                  return _buildCurrentScreen();
+                },
+              );
+            },
+          ),
           appBar: AppBar(
             centerTitle: true,
             shadowColor: Theme.of(context).colorScheme.shadow,
@@ -51,7 +51,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               IconButton(
                 icon: const Icon(Icons.shopping_cart),
                 tooltip: 'السلة',
-                onPressed: () => _selcetedPage,
+                onPressed: () => Navigator.of(context)
+                    .pushNamed('homePageScreen/' + CartPageScreen.routeName),
               ),
             ],
           ),
@@ -71,5 +72,33 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ],
           ),
         ));
+  }
+
+  Widget _buildCurrentScreen() {
+    switch (_selctedPageIndex) {
+      case 0:
+        return HomePage();
+      case 1:
+        return MenuPageScreen();
+      case 2:
+        return UserProfileScreen();
+
+      default:
+        return Container();
+    }
+  }
+
+  void _selcetedPage(int index) {
+    setState(() {
+      _selctedPageIndex = index;
+    });
+    // _navigateToScreen(_screenRoutes[index]);
+  }
+
+  void _navigateToScreen(String route) {
+    if (_navigatorKey.currentState!.canPop()) {
+      _navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    }
+    _navigatorKey.currentState!.pushNamed(route);
   }
 }
