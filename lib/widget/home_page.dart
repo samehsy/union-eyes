@@ -2,38 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:secondapp/models/glasses_frame.dart';
 import 'package:secondapp/services/glasses_service.dart';
 import '../di/service_locator.dart';
-import '../dummy_data.dart';
+
 import '../widget/product_item.dart';
 
-class HomePage extends StatelessWidget {
-  final glassesService = getIt<GlassesService>();
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
-  Widget buildFilterIcon(String titleFilter, String imagePath) {
-    return Column(
-      children: [
-        InkWell(
-          child: CircleAvatar(
-            backgroundImage: AssetImage(imagePath),
-            radius: 45,
-          ),
-          onTap: () {
-            glassesService.getAll();
-          },
-        ),
-        SizedBox(
-          height: 4,
-        ),
-        Text(
-          titleFilter,
-          style: TextStyle(
-            fontSize: 15,
-            fontFamily: 'Cario',
-            fontWeight: FontWeight.bold,
-          ),
-        )
-      ],
-    );
-  }
+class _HomePageState extends State<HomePage> {
+  final glassesService = getIt<GlassesService>();
+  String typeFliter = '';
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +25,114 @@ class HomePage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            buildFilterIcon('أطفال', 'assets/images/child.png'),
-            buildFilterIcon('نسائي', 'assets/images/woman.png'),
-            buildFilterIcon('رجالي', 'assets/images/man.png'),
+            Column(
+              children: [
+                InkWell(
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/child.png'),
+                    radius: 45,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      print('child');
+                      typeFliter = 'child';
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  ' أطفال',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Cario',
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
+            Column(
+              children: [
+                InkWell(
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/woman.png'),
+                    radius: 45,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      print('woman');
+                      typeFliter = 'woman';
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  ' نسائي',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Cario',
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
+            Column(
+              children: [
+                InkWell(
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/man.png'),
+                    radius: 45,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      print('men');
+                      typeFliter = 'men';
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  ' رجالي',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Cario',
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
+            Column(
+              children: [
+                InkWell(
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/allProduct.png'),
+                    radius: 45,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      print('allproduct');
+                      typeFliter = 'allProduct';
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  ' جميع الإطارات',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Cario',
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
           ],
         ),
         SizedBox(
@@ -75,7 +159,7 @@ class HomePage extends StatelessWidget {
           height: 10,
         ),
         FutureBuilder<List<GlassesFrame>>(
-          future: glassesService.getAll(),
+          future: glassesService.getAll(typeFliter),
           builder: (BuildContext context,
               AsyncSnapshot<List<GlassesFrame>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
