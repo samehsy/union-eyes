@@ -14,10 +14,12 @@ class ProductItem extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         onTap: () {
           Navigator.of(context).pushNamed(ProductDetailScreen.routeName);
+          print('navigator');
         },
         child: ClipRect(
           child: GridTile(
-            child: Image.network('http://192.168.1.7:8000/api/images/$imageUrl'),
+            child:
+                Image.network('http://192.168.1.7:8000/api/images/$imageUrl'),
             footer: Container(
               height: 50,
               color: Color.fromARGB(255, 242, 243, 244),
@@ -27,10 +29,9 @@ class ProductItem extends StatelessWidget {
                   Text(
                     price.toString() + '   SP',
                     style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColor
-                    ),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor),
                   ),
                   IconButton(
                     icon: Icon(
