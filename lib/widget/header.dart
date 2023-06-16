@@ -1,27 +1,34 @@
 import 'package:flutter/material.dart';
 
-class Header extends StatelessWidget {
+import '../screens/cart_page_screen.dart';
+
+class Header extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   Header({required this.title});
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      elevation: 7,
-      child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(right: 25, top: 7),
-        width: double.infinity,
-        child: Text(
-          title,
-          textAlign: TextAlign.right,
-          style: TextStyle(
-            fontFamily: 'Cario',
-            fontSize: 35,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+    return AppBar(
+      centerTitle: true,
+      shadowColor: Theme.of(context).colorScheme.shadow,
+      scrolledUnderElevation: 10.0,
+      title: Text('العالمية'),
+      leading: Image.asset(
+        'assets/images/logo-black.png',
+        width: 120,
       ),
+      backgroundColor: Colors.amberAccent,
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.shopping_cart),
+          tooltip: 'السلة',
+          onPressed: () => Navigator.of(context)
+              .pushNamed('homePageScreen/' + CartPageScreen.routeName),
+        ),
+      ],
     );
   }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size.fromHeight(60.0);
 }

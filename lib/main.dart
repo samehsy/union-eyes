@@ -39,9 +39,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       locale: const Locale('ar'),
-      title: 'Flutter Demo 1',
+      title: 'المتحدة',
+      home: HomePageScreen(),
       routes: {
-        '/': (ctx) => IntroductionScren(),
+        IntroductionScren.routeName: (ctx) => IntroductionScren(),
         // clients routers
         HomePageScreen.routeName: (ctx) => HomePageScreen(),
         ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),

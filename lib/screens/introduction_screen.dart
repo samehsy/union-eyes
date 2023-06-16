@@ -3,7 +3,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 import './home_page_screen.dart';
 
 class IntroductionScren extends StatelessWidget {
-  static const routeName = '/';
+  static const routeName = '/intro';
 /*functon to build image and config in page view mpdel*/
   Widget buildImage(String path) {
     return Card(
