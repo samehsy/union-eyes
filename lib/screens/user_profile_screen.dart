@@ -43,7 +43,7 @@ class UserProfileScreen extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Navigator.of(context).pushNamed(LogIn.routeName);
+            Navigator.of(context).pushNamed(LogInOld.routeName);
           },
           child: Container(
             width: 300,

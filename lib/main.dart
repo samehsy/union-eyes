@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:secondapp/screens/signup.dart';
 
 import 'di/service_locator.dart';
 
@@ -10,7 +12,7 @@ import './screens/lenses_order_screen.dart';
 import './screens/maintenance_order_screen.dart';
 import './screens/devices_screen.dart';
 import './screens/order_details_screen.dart';
-import './screens/login_screen.dart';
+import './screens/login.dart';
 import './screens/register_screen.dart';
 // warehouse
 import 'warehouse/screens/warehouse_home.dart';
@@ -26,7 +28,9 @@ import 'warehouse/screens/basicScreen/order_Management_Screen/new_order_screen.d
 import 'warehouse/screens/basicScreen/order_Management_Screen/excuted-order-screen.dart';
 import 'warehouse/screens/basicScreen/order_Management_Screen/order_detail_screen.dart';
 
-void main() {
+void main() async {
+  await _initHive();
+
   setup();
   runApp(const MyApp());
 }
@@ -43,7 +47,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       locale: const Locale('ar'),
       title: 'المتحدة',
-      home: HomePageScreen(),
+      home: Login(),
       routes: {
         IntroductionScren.routeName: (ctx) => IntroductionScren(),
         // clients routers
@@ -54,8 +58,8 @@ class MyApp extends StatelessWidget {
         MaintenanceOrderScreen.routeName: (ctx) => MaintenanceOrderScreen(),
         DevicesScreen.routeName: (ctx) => DevicesScreen(),
         OrderdetailsScreen.routeName: (ctx) => OrderdetailsScreen(),
-        LogIn.routeName: (ctx) => LogIn(),
-        Register.routeName: (ctx) => Register(),
+        Login.routeName: (ctx) => Login(),
+        Signup.routeName: (ctx) => Signup(),
         // warehouse routers
         '/warehouse': (ctx) => WareHoseHomePage(),
         AddOrder.routeName: (ctx) => AddOrder(),
@@ -76,4 +80,10 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _initHive() async {
+  await Hive.initFlutter();
+  await Hive.openBox("login");
+  await Hive.openBox("accounts");
 }

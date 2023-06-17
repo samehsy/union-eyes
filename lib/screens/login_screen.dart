@@ -3,14 +3,14 @@ import '../di/service_locator.dart';
 import '../widget/header.dart';
 import '../services/auth_service.dart';
 
-class LogIn extends StatefulWidget {
+class LogInOld extends StatefulWidget {
   static const routeName = '/LogInScreen';
 
   @override
-  State<LogIn> createState() => _LogInState();
+  State<LogInOld> createState() => _LogInState();
 }
 
-class _LogInState extends State<LogIn> {
+class _LogInState extends State<LogInOld> {
   String _userName = '';
   String _passWord = ' ';
 

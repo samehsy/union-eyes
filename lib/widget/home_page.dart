@@ -24,13 +24,16 @@ class _HomePageState extends State<HomePage> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          
           children: [
             Column(
               children: [
                 InkWell(
                   child: CircleAvatar(
                     backgroundImage: AssetImage('assets/images/child.png'),
-                    radius: 45,
+                    radius: 30,
+                    
+                  
                   ),
                   onTap: () {
                     setState(() {
@@ -57,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                 InkWell(
                   child: CircleAvatar(
                     backgroundImage: AssetImage('assets/images/woman.png'),
-                    radius: 45,
+                    radius: 30,
                   ),
                   onTap: () {
                     setState(() {
@@ -84,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 InkWell(
                   child: CircleAvatar(
                     backgroundImage: AssetImage('assets/images/man.png'),
-                    radius: 45,
+                    radius: 30,
                   ),
                   onTap: () {
                     setState(() {
@@ -111,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                 InkWell(
                   child: CircleAvatar(
                     backgroundImage: AssetImage('assets/images/allProduct.png'),
-                    radius: 45,
+                    radius: 30,
                   ),
                   onTap: () {
                     setState(() {

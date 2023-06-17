@@ -7,7 +7,7 @@ import '../screens/devices_screen.dart';
 class MenuPageScreen extends StatelessWidget {
   List<Map<String, dynamic>> wedgits = [
     {
-      "label": 'طباتي',
+      "label": 'طلباتي',
       "router": MyOrderScreen.routeName,
       "icon": Icons.assignment
     },
@@ -30,6 +30,11 @@ class MenuPageScreen extends StatelessWidget {
       "label": 'تعليمات مساعدة',
       "router": MyOrderScreen.routeName,
       "icon": Icons.quiz_outlined
+    },
+     {
+      "label": 'تعليمات مساعدة',
+      "router": MyOrderScreen.routeName,
+      "icon": Icons.quiz_outlined
     }
   ];
 
@@ -49,6 +54,7 @@ class MenuPageScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return Card(
             clipBehavior: Clip.hardEdge,
+            color: Theme.of(context).colorScheme.primaryContainer,
             child: InkWell(
                 onTap: () {
                   Navigator.of(context).pushNamed(wedgits[index]['router']);
