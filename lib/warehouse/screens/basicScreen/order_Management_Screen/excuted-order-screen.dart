@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../widget/warehouse_header.dart';
 
 class ExcutedOrderScreen extends StatelessWidget {
-  static const routeName = '/ExcutedOrderScreen';
+  static const routeName = '/warehouse/completed-orders';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

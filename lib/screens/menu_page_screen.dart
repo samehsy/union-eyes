@@ -21,7 +21,7 @@ class MenuPageScreen extends StatelessWidget {
     },
     {
       "label": 'طلب صيانة ',
-      "router": MaintenanceOrderScreen.routeName,
+      "router": Maintenance.routeName,
       "icon": Icons.build_circle_outlined
     },
     {

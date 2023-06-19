@@ -121,7 +121,12 @@ class IntroductionScren extends StatelessWidget {
                       onPressed: () {
                          context.go('/home');
                       },
-                      child: Text("تسجيل الدخول لاحقاً"))
+                      child: Text("تسجيل الدخول لاحقاً")),
+                        TextButton(
+                      onPressed: () {
+                         context.go('/warehouse');
+                      },
+                      child: Text("الدخول كمدير مستودع"))
                 ],
               ),
             )),

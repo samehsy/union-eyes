@@ -91,8 +91,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
       case LensesOrderScreen.routeName:
         page = LensesOrderScreen();
         break;
-      case MaintenanceOrderScreen.routeName:
-        page = MaintenanceOrderScreen();
+      case Maintenance.routeName:
+        page = Maintenance();
         break;
       default:
         page = HomePage();

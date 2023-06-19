@@ -3,7 +3,8 @@ import '../../../widget/warehouse_header.dart';
 import './order_detail_screen.dart';
 
 class NewOrderScreen extends StatelessWidget {
-  static const routeName = '/NewOrderScreen';
+  static const routeName = '/warehouse/new-orders';  
+  
    List<Map<String, dynamic>> orderData = [
     {
       'orderID': '1201',
