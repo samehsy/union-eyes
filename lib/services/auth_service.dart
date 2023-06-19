@@ -1,8 +1,11 @@
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import '../api/dio_client.dart';
 
 class AuthService {
   final DioClient dioClient;
+  final storage = FlutterSecureStorage();
 
   AuthService({required this.dioClient});
 
@@ -19,8 +22,7 @@ class AuthService {
       final authToken = response
           .data['token']; // Assuming the API response contains a 'token' field
       print(authToken);
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('auth_token', authToken);
+      await storage.write(key: 'auth_token', value: authToken);
 
       // Store the auth token in shared preferences, secure storage, or any other storage mechanism
       // You can use a third-party package like shared_preferences or flutter_secure_storage for this purpose

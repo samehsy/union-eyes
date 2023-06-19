@@ -6,6 +6,8 @@ import '../di/service_locator.dart';
 import '../widget/product_item.dart';
 
 class HomePage extends StatefulWidget {
+  static const routeName = 'products';
+
   @override
   State<HomePage> createState() => _HomePageState();
 }

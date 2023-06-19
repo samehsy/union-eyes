@@ -17,14 +17,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
         width: 120,
       ),
       backgroundColor: Colors.amberAccent,
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.shopping_cart),
-          tooltip: 'السلة',
-          onPressed: () => Navigator.of(context)
-              .pushNamed('homePageScreen/' + CartPageScreen.routeName),
-        ),
-      ],
+      actions: <Widget>[CartPageScreen()],
     );
   }
 

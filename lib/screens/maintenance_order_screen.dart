@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../widget/header.dart';
 
 class MaintenanceOrderScreen extends StatelessWidget {
-  static const routeName = '/MaintenanceOrderScreen';
+  static const routeName = '/menu/maintenance-order';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,9 +11,6 @@ class MaintenanceOrderScreen extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          Header(
-            title: 'طلب صيانة',
-          )
         ],
       ),
     );

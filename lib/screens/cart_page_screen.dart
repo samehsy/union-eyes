@@ -12,210 +12,166 @@ class CartPageScreen extends StatefulWidget {
 class _CartPageScreenState extends State<CartPageScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 30,
-        ),
-        Header(
-          title: 'السلة',
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Card(
-          elevation: 5,
-          child: Container(
-            height: 375,
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return Card(
-                  elevation: 7,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Color.fromARGB(255, 86, 101, 115),
-                            width: 2)),
-                    child: Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                Icons.delete_outline,
-                                size: 25,
-                                color: Color.fromARGB(255, 192, 57, 43),
-                              ),
-                              onPressed: () {},
-                            ),
-                            Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.add,
-                                    size: 25,
-                                  ),
-                                  onPressed: () {},
-                                ),
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.minimize_outlined,
-                                    size: 25,
-                                  ),
-                                  onPressed: () {},
-                                ),
-                              ],
-                            )
-                          ],
+    return IconButton(
+      onPressed: () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => Dialog.fullscreen(
+            child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(6),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('السلة'),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.close),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Card(
+                        clipBehavior: Clip.hardEdge,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        SizedBox(
-                          width: 150,
-                          child: Table(
-                            children: [
-                              TableRow(
-                                children: [
-                                  Text(
-                                    'طلب إطار',
-                                    textAlign: TextAlign.start,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'نوع الطلب',
-                                    textAlign: TextAlign.end,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  SizedBox(
-                                    width: 50,
-                                    height: 20,
-                                    child: FittedBox(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        Dummy_Data[index].noModel ?? '',
-                                        textAlign: TextAlign.end,
+                        // color: Theme.of(context).colorScheme.primaryContainer,
+                        child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Column(children: [
+                              Row(
+                                // mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Image.asset(
+                                        Dummy_Data[index].imageUrl?.first ?? '',
+                                        scale: 8,
+                                      )),
+                                  Expanded(
+                                      child: Column(
+                                    children: [
+                                      Text(
+                                        Dummy_Data[index].noModel.toString(),
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                          fontSize: 18,
+                                        ),
                                       ),
+                                      SizedBox(height: 15),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('الكمية' +
+                                              Dummy_Data[index]
+                                                  .price
+                                                  .toString()),
+                                          Chip(
+                                              label: Text(Dummy_Data[0]
+                                                  .price
+                                                  .toString()),
+                                              backgroundColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .primaryContainer)
+                                        ],
+                                      )
+                                    ],
+                                  ))
+                                ],
+                              ),
+                              Divider(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.add_circle_outline,
                                     ),
+                                    onPressed: () {},
                                   ),
-                                  Text(
-                                    'الموديل',
-                                    textAlign: TextAlign.end,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                  Text('4'),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.do_not_disturb_on_outlined,
+                                    ),
+                                    onPressed: () {},
                                   ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  Text(
-                                    Dummy_Data[index].arm.toString(),
-                                    textAlign: TextAlign.start,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'الكمية',
-                                    textAlign: TextAlign.end,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                  Spacer(),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.delete_outline,
+                                    ),
+                                    onPressed: () {},
                                   ),
                                 ],
-                              ),
-                              TableRow(
-                                children: [
-                                  Text(
-                                    Dummy_Data[index].price.toString(),
-                                    textAlign: TextAlign.start,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'السعر',
-                                    textAlign: TextAlign.end,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                              )
+                            ])));
+                  },
+                  itemCount: Dummy_Data.length,
+                ),
+              ),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'قيمة الفاتورة',
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                    Card(
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 120,
+                        height: 30,
+                        child: Text(
+                          '12540',
+                          style: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Color.fromARGB(255, 220, 118, 51),
-                                width: 1),
-                          ),
-                          child: Image.asset(
-                            Dummy_Data[index].imageUrl?.first ?? '',
-                            scale: 8,
-                          ),
-                        )
-                      ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                    backgroundColor:
+                        Theme.of(context).colorScheme.primaryContainer,
+                    // maximumSize: Size.fromWidth(100),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                );
-                ;
-              },
-              itemCount: Dummy_Data.length,
-            ),
+                  onPressed: () {},
+                  child: const Text('إرسال الطلب'),
+                ),
+              ),
+            ],
           ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Card(
-              child: Container(
-                alignment: Alignment.center,
-                width: 120,
-                height: 30,
-                child: Text(
-                  '12540',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            Text(
-              'قيمة الفاتورة',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
-        Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(70)),
-          child: ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 243, 156, 18)),
-              ),
-              child: Text(
-                'إرسال الطلب',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 35,
-                  fontFamily: 'Cairo',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: () {}),
-        ),
-      ],
+        )),
+      ),
+      icon: const Icon(Icons.shopping_cart),
+      tooltip: 'السلة',
     );
   }
 }

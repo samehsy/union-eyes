@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import '../screens/order_details_screen.dart';
 
 class MyOrderScreen extends StatelessWidget {
-  static const routeName = '/MyOrderScreen';
+  static const routeName = '/menu/my-orders';
 
   List<Map<String, dynamic>> myOrder = [
     {'id': 1, 'date': DateTime.now(), 'state': 'Underway', 'bill': 5000},
@@ -75,125 +75,99 @@ class MyOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Header(title: ''),
-      body: ListView.builder(
+        body: Container(
+      padding: EdgeInsets.all(10),
+      child: ListView.builder(
         itemBuilder: (ctx, index) {
-          return Container(
-            padding: EdgeInsets.all(10.0),
-            child: Card(
-                clipBehavior: Clip.hardEdge,
-                child: Column(
-                  children: [
-                    Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 20,
-                            ),
-                            buildAttributesOrder(
-                              myOrder[index].keys.elementAt(0),
-                              //'رقم الطلب',
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            buildAttributesOrder(
-                              myOrder[index].keys.elementAt(1),
-                              //'تاريخ الطلب',
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            buildAttributesOrder(
-                              myOrder[index].keys.elementAt(2),
-                              //'حالة الطلب',
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            buildAttributesOrder(
-                              myOrder[index].keys.elementAt(3),
-                              //'مبلغ الفاتورة',
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 150,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 20,
-                            ),
-                            buildValueOfAttributes(
-                              myOrder[index].values.elementAt(0).toString(),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            buildValueOfAttributes(
-                              DateFormat.yMMMd()
-                                  .format(myOrder[index].values.elementAt(1)),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            myOrder[index]['state'] == 'Underway'
-                                ? buildStateOrder(myOrder[index]['state'],
-                                    Color.fromARGB(255, 144, 202, 249))
-                                : myOrder[index]['state'] == 'failure'
-                                    ? buildStateOrder(myOrder[index]['state'],
-                                        Color.fromARGB(255, 244, 67, 54))
-                                    : buildStateOrder(myOrder[index]['state'],
-                                        Color.fromARGB(255, 67, 160, 71)),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            buildValueOfAttributes(
-                              myOrder[index].values.elementAt(3).toString(),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 320,
-                        ),
-                        TextButton(
-                          child: Text(
-                            'التفاصيل',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: 'Cairo',
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 243, 156, 18),
-                            ),
+          return Card(
+              clipBehavior: Clip.hardEdge,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: Theme.of(context).colorScheme.outline,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
+              ),
+              //
+              child: Container(
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              buildAttributesOrder(
+                                myOrder[index].keys.elementAt(0),
+                                //'رقم الطلب',
+                              ),
+                              buildAttributesOrder(
+                                myOrder[index].keys.elementAt(1),
+                                //'تاريخ الطلب',
+                              ),
+                              buildAttributesOrder(
+                                myOrder[index].keys.elementAt(2),
+                                //'حالة الطلب',
+                              ),
+                              buildAttributesOrder(
+                                myOrder[index].keys.elementAt(3),
+                                //'مبلغ الفاتورة',
+                              ),
+                            ],
                           ),
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(OrderdetailsScreen.routeName);
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                )),
-          );
+                          Spacer(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              buildValueOfAttributes(
+                                myOrder[index].values.elementAt(0).toString(),
+                              ),
+                              buildValueOfAttributes(
+                                DateFormat.yMMMd()
+                                    .format(myOrder[index].values.elementAt(1)),
+                              ),
+                              myOrder[index]['state'] == 'Underway'
+                                  ? buildStateOrder(myOrder[index]['state'],
+                                      Color.fromARGB(255, 144, 202, 249))
+                                  : myOrder[index]['state'] == 'failure'
+                                      ? buildStateOrder(myOrder[index]['state'],
+                                          Color.fromARGB(255, 244, 67, 54))
+                                      : buildStateOrder(myOrder[index]['state'],
+                                          Color.fromARGB(255, 67, 160, 71)),
+                              buildValueOfAttributes(
+                                myOrder[index].values.elementAt(3).toString(),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          TextButton(
+                            child: Text(
+                              'التفاصيل',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'Cairo',
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 243, 156, 18),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(OrderdetailsScreen.routeName);
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  )));
         },
         itemCount: myOrder.length,
       ),
-    );
+    ));
   }
 }

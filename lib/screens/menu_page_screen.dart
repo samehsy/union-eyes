@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../screens/my_order_screen.dart';
 import '../screens/lenses_order_screen.dart';
 import '../screens/maintenance_order_screen.dart';
 import '../screens/devices_screen.dart';
 
 class MenuPageScreen extends StatelessWidget {
+  static const routeName = 'menu';
+
   List<Map<String, dynamic>> wedgits = [
     {
       "label": 'طلباتي',
@@ -31,7 +34,7 @@ class MenuPageScreen extends StatelessWidget {
       "router": MyOrderScreen.routeName,
       "icon": Icons.quiz_outlined
     },
-     {
+    {
       "label": 'تعليمات مساعدة',
       "router": MyOrderScreen.routeName,
       "icon": Icons.quiz_outlined
@@ -41,15 +44,13 @@ class MenuPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-        primary: false,
+        
         padding: const EdgeInsets.all(20),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          
-          crossAxisCount: 2,
-          mainAxisSpacing: 10.0,
-          crossAxisSpacing: 10.0,
-          childAspectRatio :1
-        ),
+            crossAxisCount: 2,
+            mainAxisSpacing: 10.0,
+            crossAxisSpacing: 10.0,
+            childAspectRatio: 1),
         itemCount: wedgits.length,
         itemBuilder: (context, index) {
           return Card(
@@ -57,11 +58,9 @@ class MenuPageScreen extends StatelessWidget {
             color: Theme.of(context).colorScheme.primaryContainer,
             child: InkWell(
                 onTap: () {
-                  Navigator.of(context).pushNamed(wedgits[index]['router']);
+                  context.go(wedgits[index]['router']);
                 },
                 canRequestFocus: true,
-                autofocus: true,
-                splashColor: Colors.blue.withAlpha(30),
                 child: Container(
                   padding: EdgeInsets.all(16),
                   child: Column(
@@ -70,7 +69,7 @@ class MenuPageScreen extends StatelessWidget {
                       Icon(
                         wedgits[index]['icon'],
                         size: 60.0,
-                        color: Colors.grey,
+                        color: Colors.black45,
                       ),
                       Spacer(),
                       Text(wedgits[index]['label']),

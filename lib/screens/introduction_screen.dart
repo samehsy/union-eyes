@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:secondapp/screens/login.dart';
 import './home_page_screen.dart';
 
 class IntroductionScren extends StatelessWidget {
-  static const routeName = '/intro';
+  static const routeName = '/';
 /*functon to build image and config in page view mpdel*/
   Widget buildImage(String path) {
     return Card(
@@ -54,19 +56,7 @@ class IntroductionScren extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
-      onDone: () {
-        Navigator.of(context).pushReplacementNamed(
-          HomePageScreen.routeName,
-        );
-      },
-      done: const Text(
-        'تم ',
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'Cario',
-        ),
-      ),
+      showDoneButton: false,
       next: Icon(
         Icons.arrow_forward,
         size: 30,
@@ -103,11 +93,38 @@ class IntroductionScren extends StatelessWidget {
           decoration: getPageDecoration(),
         ),
         PageViewModel(
-          title: 'منتجاتنا ستصلك إلى مركزك',
-          body: 'ابعث عنوان مركزك وانتظر عامل التوصيل',
-          image: buildImage('assets/images/DeliveryPage.png'),
-          decoration: getPageDecoration(),
-        ),
+            title: 'منتجاتنا ستصلك إلى مركزك',
+            body: 'ابعث عنوان مركزك وانتظر عامل التوصيل',
+            image: buildImage('assets/images/DeliveryPage.png'),
+            decoration: getPageDecoration(),
+            footer: Container(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                      backgroundColor:
+                          Theme.of(context).colorScheme.primaryContainer,
+                      // maximumSize: Size.fromWidth(100),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: () {
+                      context.go('/login');
+                    },
+                    child: const Text("تسجيل الدخول"),
+                  ),
+                  SizedBox(height: 10),
+                  TextButton(
+                      onPressed: () {
+                         context.go('/home');
+                      },
+                      child: Text("تسجيل الدخول لاحقاً"))
+                ],
+              ),
+            )),
       ],
     );
   }

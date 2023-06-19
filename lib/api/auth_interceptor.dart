@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthInterceptor extends Interceptor {
   @override
@@ -16,10 +16,11 @@ class AuthInterceptor extends Interceptor {
   }
 
   static getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // Retrieving the token
-    String? authToken = prefs.getString('auth_token');
+    final storage = FlutterSecureStorage();
 
-    return authToken ?? '';
+    String? token = await storage.read(key: 'auth_token');
+    // Retrieving the token
+
+    return token ?? '';
   }
 }

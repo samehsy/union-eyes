@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:secondapp/screens/introduction_screen.dart';
 import 'package:secondapp/widget/home_page.dart';
@@ -37,9 +38,12 @@ class _LoginState extends State<Login> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
             appBar: AppBar(
-              leading: const BackButton(
+              leading: BackButton(
                   color: Colors.black,
-                  style: ButtonStyle(iconSize: MaterialStatePropertyAll(30))),
+                  style: ButtonStyle(iconSize: MaterialStatePropertyAll(30)),
+                  onPressed: () {
+                    context.go('/home');
+                  }),
               backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             ),
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
