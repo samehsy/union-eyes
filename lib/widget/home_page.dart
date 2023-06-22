@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          
           children: [
             Column(
               children: [
@@ -34,8 +33,6 @@ class _HomePageState extends State<HomePage> {
                   child: CircleAvatar(
                     backgroundImage: AssetImage('assets/images/child.png'),
                     radius: 30,
-                    
-                  
                   ),
                   onTap: () {
                     setState(() {
@@ -183,6 +180,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisSpacing: 10,
                   ),
                   itemBuilder: (ctx, i) => ProductItem(
+                    products[i].id ?? 0,
                     products[i].imageUrl?.first ?? '',
                     products[i].noModel ?? '',
                     products[i].price ?? 0,

@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:secondapp/screens/lenses_order_screen.dart';
 import 'package:secondapp/screens/login.dart';
+import 'package:secondapp/screens/product_detail_screen.dart';
 import 'package:secondapp/screens/signup.dart';
 import 'package:secondapp/warehouse/screens/basicScreen/add_Order_Screen/add_order_screen.dart';
 import 'package:secondapp/warehouse/screens/basicScreen/order_Management_Screen/excuted-order-screen.dart';
@@ -49,11 +50,19 @@ final goRouter = GoRouter(
             routes: [
               // top route inside branch
               GoRoute(
-                path: '/home',
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: HomePage(),
-                ),
-              ),
+                  path: '/home',
+                  pageBuilder: (context, state) => NoTransitionPage(
+                        child: HomePage(),
+                      ),
+                  routes: [
+                    GoRoute(
+                        path: 'details/:id',
+                        pageBuilder: (context, state) {
+                          final id = state.pathParameters['id']!;
+                          print(id);
+                          return NoTransitionPage(child: ProductDetail(id));
+                        }),
+                  ]),
             ],
           ),
           StatefulShellBranch(
@@ -121,7 +130,7 @@ final goRouter = GoRouter(
                         child: ExcutedOrderScreen(),
                       ),
                     ),
-                     GoRoute(
+                    GoRoute(
                       path: 'new-orders',
                       pageBuilder: (context, state) => NoTransitionPage(
                         child: NewOrderScreen(),

@@ -1,180 +1,189 @@
 import 'package:flutter/material.dart';
+import '../services/glasses_service.dart';
 import '../widget/header.dart';
+import '../di/service_locator.dart';
 
-class ProductDetailScreen extends StatelessWidget {
-  static const routeName = '/ProductDetailScreen';
-  final index = 0;
+class ProductDetail extends StatefulWidget {
+  static const routeName = '/home/details';
+
+  final String id;
+  ProductDetail(this.id);
+
+  @override
+  State<ProductDetail> createState() => _ProductDetailState();
+}
+
+class _ProductDetailState extends State<ProductDetail> {
+  static const routeName = '/home/details';
+  final glassesService = getIt<GlassesService>();
+
+  String id = '';
   @override
   Widget build(BuildContext context) {
+    // final item = glassesService.getOne(id);
+    // print(item);
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(10),
-        scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            Card(
-              child: IndexedStack(
-                index: index,
-                children: <Widget>[
-                  Container(
-                      child: Center(
-                          child: Image.asset(
-                    "assets/images/j.jpg",
-                  ))),
-                  Container(
-                      child: Center(
-                          child: Image.asset(
-                    "assets/images/h.jpg",
-                  ))),
-                  Container(
-                      child: Center(
-                          child: Image.asset(
-                    "assets/images/w.jpg",
-                  ))),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                InkWell(
-                  child: Container(
-                      width: 100,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.blueGrey, width: 3),
-                      ),
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.all(2),
-                      child: Image.asset(
-                        'assets/images/j.jpg',
-                        alignment: Alignment.center,
-                      )),
-                  onTap: () {
-                    // setState(() {
-                    //   this.index = 0;
-                    // });
-                  },
-                ),
-                InkWell(
-                  child: Container(
-                      width: 100,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.blueGrey, width: 3),
-                      ),
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.all(2),
-                      child: Image.asset(
-                        'assets/images/h.jpg',
-                        alignment: Alignment.center,
-                      )),
-                  onTap: () {
-                    // setState(() {
-                    //   index = 1;
-                    // });
-                  },
-                ),
-                InkWell(
-                  child: Container(
-                      width: 100,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.blueGrey, width: 3),
-                      ),
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.all(2),
-                      child: Image.asset(
-                        'assets/images/w.jpg',
-                        alignment: Alignment.center,
-                      )),
-                  onTap: () {
-                    // setState(() {
-                    //   index = 2;
-                    // });
-                  },
-                ),
-              ],
-            ),
-            InkWell(
-              child: Image.asset(
-                'assets/images/carrera-logo.png',
-                width: 100,
-                height: 100,
-              ),
-              onTap: () {},
+            const SizedBox(
+              height: 50,
             ),
             Container(
-              child: Text(
-                "CARRERA FRAME FOR UNISEX ROUND GOLD - 245 J5G",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, height: 1.5),
-              ),
-            ),
-            Container(
-              child: Text(
-                "SAR 984",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    height: 2,
-                    color: Colors.cyan),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
-              //width: double.infinity,
-              height: 150,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.blueGrey, width: 2),
+                border: Border.all(
+                  color: Colors.amber,
+                  width: 0.5,
+                ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Image.asset(
-                    'assets/images/tabby.jpg',
-                    width: 100,
-                  ),
-                  Text(
-                    'or 4 interest-free payments of 984.00 SAR.',
-                    style: TextStyle(fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
+              // child: Image.asset(
+              //   widget.imageUrl[indexImage],
+              //   scale: 3,
+              // ),
+            ),
+            const SizedBox(
+              height: 50,
             ),
             Container(
-              padding: EdgeInsets.all(10),
-              child: Text(
-                "شحن مجاني وإعادته واستبداله",
-                style: TextStyle(fontSize: 20),
+              width: double.infinity,
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, i) {
+                  return InkWell(
+                    child: Container(
+                      margin: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.blueGrey,
+                          width: 2.0,
+                        ),
+                      ),
+                      // child: Image.asset(
+                      //   // widget.imageUrl[i],
+                      // ),
+                    ),
+                    onTap: () {
+                      setState(
+                        () {
+                          // indexImage = i;
+                        },
+                      );
+                    },
+                  );
+                },
+                // itemCount:1 widget.imageUrl.length,
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(10),
-              child: Text(
-                "يقدر موعد التسليم: 3-5",
-                style: TextStyle(
-                  color: Colors.cyan,
-                  fontSize: 20,
+            const SizedBox(
+              height: 7,
+            ),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Card(
+                elevation: 7,
+                child: ExpansionTile(
+                  textColor: Colors.green,
+                  title: const Text('تفاصيل المنتج '),
+                  children: [
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Table(
+                        children: const [
+                          TableRow(
+                            children: [
+                              Text(
+                                'رقم الموديل ',
+                                textAlign: TextAlign.center,
+                              ),
+                              Text('125', textAlign: TextAlign.start),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                'رقم اللون',
+                                textAlign: TextAlign.center,
+                              ),
+                              Text('125', textAlign: TextAlign.start),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                'السعر',
+                                textAlign: TextAlign.center,
+                              ),
+                              Text('125', textAlign: TextAlign.start),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                'الحجم',
+                                textAlign: TextAlign.center,
+                              ),
+                              Text('125', textAlign: TextAlign.start),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                'الجسر',
+                                textAlign: TextAlign.center,
+                              ),
+                              Text('125', textAlign: TextAlign.start),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                'الذراع',
+                                textAlign: TextAlign.center,
+                              ),
+                              Text('125', textAlign: TextAlign.start),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                'شكل الاطار',
+                                textAlign: TextAlign.center,
+                              ),
+                              Text('125', textAlign: TextAlign.start),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                'صنف الاطار',
+                                textAlign: TextAlign.center,
+                              ),
+                              Text('125', textAlign: TextAlign.start),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                'الشركة المصنعة',
+                                textAlign: TextAlign.center,
+                              ),
+                              Text('125', textAlign: TextAlign.start),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Divider(),
-            Container(
-              child: Scrollbar(
-                child: Column(
-                  children: [
-                    Text(
-                      "تفاصيل المنتج",
-                      style: TextStyle(fontSize: 20, color: Colors.cyan),
-                      textAlign: TextAlign.start,
-                    ),
-                    Text("Materials: METAL"),
-                    Text("Size: 50"),
-                    Text("Arm:140"),
-                    Text("Bridge:22"),
-                    Text("Frame shape:ROUND")
-                  ],
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('اضف الى السلة'),
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  Colors.amberAccent,
                 ),
               ),
             ),

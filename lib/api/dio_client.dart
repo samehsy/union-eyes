@@ -7,14 +7,14 @@ class DioClient {
   final Dio dio;
 
   // final _baseUrl = 'https://reqres.in/api/';
-  static final _baseUrl = 'http://192.168.1.7:8000/api/';
+  static final _baseUrl = 'http://192.168.43.180/api/';
 
   DioClient(this.dio) {
     dio
       ..options.baseUrl = _baseUrl
       ..options.contentType = ContentType.json.value
       ..options.responseType = ResponseType.json;
-      setupInterceptors();
+    setupInterceptors();
   }
 
   void setupInterceptors() {
@@ -36,6 +36,7 @@ class DioClient {
       data: data,
     );
   }
+
   // Get:-----------------------------------------------------------------------
   Future<Response> get(
     String url, {

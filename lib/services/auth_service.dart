@@ -9,28 +9,28 @@ class AuthService {
 
   AuthService({required this.dioClient});
 
-  Future<String> login(String username, String password) async {
+  Future<bool> login(String username, String password) async {
     try {
       final response = await dioClient.post(
         'login',
         data: {
-          'username': username,
+          'email': username,
           'password': password,
         },
       );
+      var data = response.data;
 
-      final authToken = response
-          .data['token']; // Assuming the API response contains a 'token' field
-      print(authToken);
+      final authToken = data['authorisation']
+          ['token']; // Assuming the API response contains a 'token' field
+
       await storage.write(key: 'auth_token', value: authToken);
 
-      // Store the auth token in shared preferences, secure storage, or any other storage mechanism
-      // You can use a third-party package like shared_preferences or flutter_secure_storage for this purpose
+      // // Store the auth token in shared preferences, secure storage, or any other storage mechanism
+      // // You can use a third-party package like shared_preferences or flutter_secure_storage for this purpose
 
-      return authToken;
+      return true;
     } catch (e) {
-      // Handle login failure
-      throw Exception('Login failed');
+      return false;
     }
   }
 

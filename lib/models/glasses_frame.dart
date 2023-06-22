@@ -14,7 +14,7 @@ class GlassesFrame {
   final int? id;
   final String? noModel;
   final String? noColor;
-  final double? price;
+  final int? price;
   final String? frameType;
   final int? size;
   final int? arm;

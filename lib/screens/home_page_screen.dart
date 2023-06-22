@@ -82,8 +82,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
       case Profile.routeName:
         page = Profile();
         break;
-      case ProductDetailScreen.routeName:
-        page = ProductDetailScreen();
+      case ProductDetail.routeName:
+        // page = ProductDetail();
         break;
       case MyOrderScreen.routeName:
         page = MyOrderScreen();

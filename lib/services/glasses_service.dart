@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+ 
 import 'package:secondapp/models/glasses_frame.dart';
 
 import '../api/dio_client.dart';
@@ -35,7 +35,8 @@ class GlassesService {
           jsonData = response.data['products'];
         }
 
-        return jsonData.map((json) => GlassesFrame.fromJson(json)).toList();
+        products = jsonData.map((json) => GlassesFrame.fromJson(json)).toList();
+        return products;
       } else {
         throw Exception('Failed to fetch data');
       }
@@ -43,5 +44,9 @@ class GlassesService {
       // Handle login failure
       throw Exception(e);
     }
+  }
+
+  GlassesFrame getOne(String id) {
+     return products[int.parse(id)];
   }
 }

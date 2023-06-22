@@ -1,25 +1,29 @@
+import 'package:go_router/go_router.dart';
 import 'package:secondapp/widget/header.dart';
 import 'package:flutter/material.dart';
 import '../screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
+  final int id;
   final String imageUrl;
   final String noModel;
-  final double price;
-  ProductItem(this.imageUrl, this.noModel, this.price);
+  final int price;
+  ProductItem(this.id, this.imageUrl, this.noModel, this.price);
   @override
   Widget build(BuildContext context) {
     return Card(
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          Navigator.of(context).pushNamed(ProductDetailScreen.routeName);
+          context.go(
+            ProductDetail.routeName + '/' + id.toString(),
+          );
+
           print('navigator');
         },
         child: ClipRect(
           child: GridTile(
-            child:
-                Image.network('http://192.168.1.7:8000/api/images/$imageUrl'),
+            child: Image.network('http://192.168.43.180/api/images/$imageUrl'),
             footer: Container(
               height: 50,
               color: Color.fromARGB(255, 242, 243, 244),

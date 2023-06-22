@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:secondapp/screens/introduction_screen.dart';
 import 'package:secondapp/widget/home_page.dart';
+import '../di/service_locator.dart';
 
+import '../services/auth_service.dart';
 import 'signup.dart';
 
 class Login extends StatefulWidget {
@@ -18,6 +20,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final authService = getIt<AuthService>();
+
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final FocusNode _focusNodePassword = FocusNode();
@@ -135,20 +139,23 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             onPressed: () {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                _boxLogin.put("loginStatus", true);
-                                _boxLogin.put(
-                                    "userName", _controllerUsername.text);
+                              var response = authService
+                                  .login(_controllerUsername.text,
+                                      _controllerPassword.text)
+                                  .then(
+                                (value) {
+                                  print(value);
 
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return HomePage();
-                                    },
-                                  ),
-                                );
-                              }
+                                  if (value) {
+                                    context.go('/profile');
+                                  } else {
+                                    _boxLogin.put("loginStatus", true);
+                                    _boxLogin.put(
+                                        "userName", _controllerUsername.text);
+                                  }
+                                },
+                              );
+                              // if (_formKey.currentState?.validate() ?? false) {}
                             },
                             child: const Text("تسجيل الدخول"),
                           ),
