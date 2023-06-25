@@ -15,6 +15,7 @@ class GlassesFrame {
   final String? noModel;
   final String? noColor;
   final int? price;
+  final int? count;
   final String? frameType;
   final int? size;
   final int? arm;
@@ -30,6 +31,7 @@ class GlassesFrame {
     this.noModel,
     this.noColor,
     this.price,
+    this.count,
     this.frameType,
     this.size,
     this.arm,

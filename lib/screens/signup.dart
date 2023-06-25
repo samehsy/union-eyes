@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class Signup extends StatefulWidget {
@@ -15,7 +17,8 @@ class _SignupState extends State<Signup> {
   final FocusNode _focusNodeEmail = FocusNode();
   final FocusNode _focusNodePassword = FocusNode();
   final FocusNode _focusNodeConfirmPassword = FocusNode();
-  final TextEditingController _controllerUsername = TextEditingController();
+  final TextEditingController _controllerFirstname = TextEditingController();
+  final TextEditingController _controllerLastname = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
   final TextEditingController _controllerConFirmPassword =
@@ -37,8 +40,8 @@ class _SignupState extends State<Signup> {
             ),
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             body: Column(children: [
-              Image.asset(
-                'assets/images/logo-black.png',
+              SvgPicture.asset(
+                'assets/images/logo.svg',
                 width: 140,
               ),
               Form(
@@ -54,7 +57,7 @@ class _SignupState extends State<Signup> {
                       // first name
                       const SizedBox(height: 35),
                       TextFormField(
-                        controller: _controllerUsername,
+                        controller: _controllerFirstname,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           labelText: 'الاسم الاول',
@@ -78,7 +81,7 @@ class _SignupState extends State<Signup> {
                       // last name
                       const SizedBox(height: 10),
                       TextFormField(
-                        controller: _controllerUsername,
+                        controller: _controllerLastname,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           labelText: 'الاسم الاخير',
@@ -209,7 +212,7 @@ class _SignupState extends State<Signup> {
                             onPressed: () {
                               if (_formKey.currentState?.validate() ?? false) {
                                 _boxAccounts.put(
-                                  _controllerUsername.text,
+                                  _controllerFirstname.text,
                                   _controllerConFirmPassword.text,
                                 );
 
@@ -228,7 +231,7 @@ class _SignupState extends State<Signup> {
 
                                 _formKey.currentState?.reset();
 
-                                Navigator.pop(context);
+                                context.go('/verify');
                               }
                             },
                             child: const Text("تسجيل"),
@@ -257,7 +260,8 @@ class _SignupState extends State<Signup> {
     _focusNodeEmail.dispose();
     _focusNodePassword.dispose();
     _focusNodeConfirmPassword.dispose();
-    _controllerUsername.dispose();
+    _controllerFirstname.dispose();
+    _controllerLastname.dispose();
     _controllerEmail.dispose();
     _controllerPassword.dispose();
     _controllerConFirmPassword.dispose();

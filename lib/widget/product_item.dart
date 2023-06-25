@@ -1,14 +1,16 @@
 import 'package:go_router/go_router.dart';
-import 'package:secondapp/widget/header.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:secondapp/models/glasses_frame.dart';
+import '../constant.dart';
+import '../controllers/products_controller.dart';
 import '../screens/product_detail_screen.dart';
 
+final ProductController controller = Get.put(ProductController());
+
 class ProductItem extends StatelessWidget {
-  final int id;
-  final String imageUrl;
-  final String noModel;
-  final int price;
-  ProductItem(this.id, this.imageUrl, this.noModel, this.price);
+  final GlassesFrame product;
+  ProductItem(this.product);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,22 +18,19 @@ class ProductItem extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         onTap: () {
           context.go(
-            ProductDetail.routeName + '/' + id.toString(),
+            '${ProductDetail.routeName}/${product.id}',
           );
-
-          print('navigator');
         },
         child: ClipRect(
           child: GridTile(
-            child: Image.network('http://192.168.43.180/api/images/$imageUrl'),
             footer: Container(
               height: 50,
-              color: Color.fromARGB(255, 242, 243, 244),
+              color: const Color.fromARGB(255, 242, 243, 244),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    price.toString() + '   SP',
+                    '${product.price}   SP',
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -42,10 +41,30 @@ class ProductItem extends StatelessWidget {
                       Icons.add_shopping_cart,
                       color: Theme.of(context).primaryColor,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.add(product);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          content: const Text("تم الإضافة الى السلة "),
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
+            ),
+            child: Image.network(
+              '${API_URL}images/${product.imageUrl?.first}',
+              errorBuilder: ((context, error, stackTrace) {
+                return Image.asset('assets/images/logo-black.png');
+              }),
             ),
           ),
         ),
@@ -53,22 +72,3 @@ class ProductItem extends StatelessWidget {
     );
   }
 }
-/*GridTileBar(
-            trailing: IconButton(
-              icon: Icon(
-                Icons.favorite_border,
-                color: Color.fromARGB(255, 243, 156, 18),
-              ),
-              onPressed: () {},
-            ),
-            title: Text(''),
-            leading: Text(
-              price.toString() + '   SP',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 243, 156, 18),
-              ),
-            ),
-            backgroundColor: Color.fromARGB(255, 248, 249, 249),
-          ),*/

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:secondapp/screens/introduction_screen.dart';
 import 'package:secondapp/widget/home_page.dart';
 import '../di/service_locator.dart';
 
@@ -25,19 +25,13 @@ class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final FocusNode _focusNodePassword = FocusNode();
-  final TextEditingController _controllerUsername = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
   bool _obscurePassword = true;
-  final Box _boxLogin = Hive.box("login");
-  final Box _boxAccounts = Hive.box("accounts");
 
   @override
   Widget build(BuildContext context) {
-    if (_boxLogin.get("loginStatus") ?? false) {
-      return HomePage();
-    }
-
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
@@ -52,8 +46,8 @@ class _LoginState extends State<Login> {
             ),
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             body: Column(children: [
-              Image.asset(
-                'assets/images/logo-black.png',
+              SvgPicture.asset(
+                'assets/images/logo.svg',
                 width: 140,
               ),
               Text(
@@ -68,7 +62,7 @@ class _LoginState extends State<Login> {
                     children: [
                       const SizedBox(height: 60),
                       TextFormField(
-                        controller: _controllerUsername,
+                        controller: _controllerEmail,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           labelText: "اسم المستخدم",
@@ -84,11 +78,8 @@ class _LoginState extends State<Login> {
                             _focusNodePassword.requestFocus(),
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
-                            return "يرجى إدخال اسم المستخدم";
-                          } else if (!_boxAccounts.containsKey(value)) {
-                            return "اسم المستخدم مطلوب";
+                            return "يرجى إدخال بريدك الإلكتروني";
                           }
-
                           return null;
                         },
                       ),
@@ -120,9 +111,6 @@ class _LoginState extends State<Login> {
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return "يرجى  إدخال كلمة المرور";
-                          } else if (value !=
-                              _boxAccounts.get(_controllerUsername.text)) {
-                            return "كلمة المرور خاطئة";
                           }
 
                           return null;
@@ -139,23 +127,9 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             onPressed: () {
-                              var response = authService
-                                  .login(_controllerUsername.text,
-                                      _controllerPassword.text)
-                                  .then(
-                                (value) {
-                                  print(value);
-
-                                  if (value) {
-                                    context.go('/profile');
-                                  } else {
-                                    _boxLogin.put("loginStatus", true);
-                                    _boxLogin.put(
-                                        "userName", _controllerUsername.text);
-                                  }
-                                },
-                              );
-                              // if (_formKey.currentState?.validate() ?? false) {}
+                              if (_formKey.currentState!.validate()) {
+                                login();
+                              }
                             },
                             child: const Text("تسجيل الدخول"),
                           ),
@@ -193,8 +167,23 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     _focusNodePassword.dispose();
-    _controllerUsername.dispose();
+    _controllerEmail.dispose();
     _controllerPassword.dispose();
     super.dispose();
+  }
+
+  login() {
+    authService.login(_controllerEmail.text, _controllerPassword.text).then(
+      (value) {
+        print(value);
+
+        if (value) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('تم تسجيل الدخول بنجاح')),
+          );
+          context.go('/profile');
+        }
+      },
+    );
   }
 }

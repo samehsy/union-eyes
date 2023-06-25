@@ -179,12 +179,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                   ),
-                  itemBuilder: (ctx, i) => ProductItem(
-                    products[i].id ?? 0,
-                    products[i].imageUrl?.first ?? '',
-                    products[i].noModel ?? '',
-                    products[i].price ?? 0,
-                  ),
+                  itemBuilder: (ctx, i) {print(products[i].imageUrl); return ProductItem(products[i]);},
                   itemCount: products.length,
                 ),
               );

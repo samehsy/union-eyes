@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../screens/cart_page_screen.dart';
 
@@ -12,10 +13,8 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       shadowColor: Theme.of(context).colorScheme.shadow,
       scrolledUnderElevation: 10.0,
       title: Text('العالمية'),
-      leading: Image.asset(
-        'assets/images/logo-black.png',
-        width: 120,
-      ),
+      
+      leading:SvgPicture.asset('assets/images/logo.svg' ,width: 100, ),
       backgroundColor: Colors.amberAccent,
       actions: <Widget>[CartPageScreen()],
     );

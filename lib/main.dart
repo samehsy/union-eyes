@@ -5,6 +5,7 @@ import 'package:secondapp/screens/lenses_order_screen.dart';
 import 'package:secondapp/screens/login.dart';
 import 'package:secondapp/screens/product_detail_screen.dart';
 import 'package:secondapp/screens/signup.dart';
+import 'package:secondapp/screens/verfiy_email_screen.dart';
 import 'package:secondapp/warehouse/screens/basicScreen/add_Order_Screen/add_order_screen.dart';
 import 'package:secondapp/warehouse/screens/basicScreen/order_Management_Screen/excuted-order-screen.dart';
 import 'package:secondapp/warehouse/screens/basicScreen/order_Management_Screen/new_order_screen.dart';
@@ -38,6 +39,10 @@ final goRouter = GoRouter(
       path: '/singup',
       builder: (context, state) => Signup(),
     ),
+    GoRoute(
+      path: '/verify',
+      builder: (context, state) => Verificatoin(),
+    ),
     StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           // the UI shell
@@ -59,7 +64,6 @@ final goRouter = GoRouter(
                         path: 'details/:id',
                         pageBuilder: (context, state) {
                           final id = state.pathParameters['id']!;
-                          print(id);
                           return NoTransitionPage(child: ProductDetail(id));
                         }),
                   ]),
@@ -83,7 +87,7 @@ final goRouter = GoRouter(
                       ),
                       GoRoute(
                         path: 'maintenance-order',
-                        pageBuilder: (context, state) => NoTransitionPage(
+                        pageBuilder: (context, state) => const NoTransitionPage(
                           child: Maintenance(),
                         ),
                       ),

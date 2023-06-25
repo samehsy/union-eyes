@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import '../constant.dart';
 import 'auth_interceptor.dart';
 
 class DioClient {
   final Dio dio;
 
   // final _baseUrl = 'https://reqres.in/api/';
-  static final _baseUrl = 'http://192.168.43.180/api/';
+  static const _baseUrl = API_URL;
 
   DioClient(this.dio) {
     dio
